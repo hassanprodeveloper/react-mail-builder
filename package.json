@@ -1,7 +1,6 @@
 {
   "name": "react-email-editor-demo",
   "version": "1.0.0",
-  "main": "index.js",
   "license": "MIT",
   "scripts": {
     "dev": "rm -rf .parcel-cache && parcel index.html --port 3000",
@@ -14,6 +13,7 @@
     "react-email-editor": "^1.7.9",
     "react-is": "^18.2.0",
     "react-router-dom": "^6.21.2",
+    "src": "^1.1.2",
     "styled-component": "^2.8.0",
     "styled-components": "^5.3.11"
   },
