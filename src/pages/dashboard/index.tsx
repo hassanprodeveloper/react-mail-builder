@@ -11,7 +11,11 @@ const Dashboard = () => {
 			</p>
 
 			<p>
-				<Link to={`/design/new`}>New Design</Link>
+				<Link to={`/design`}>New Design</Link>
+			</p>
+
+			<p>
+				<Link to={`/design/edit`}>Edit Design</Link>
 			</p>
 		</div>
 	)

@@ -1,7 +1,7 @@
 import React, { useRef } from "react"
 import styled from "styled-components"
 import { Link } from "react-router-dom"
-import EmailEditor, { EditorRef } from "react-email-editor"
+import EmailEditor, { EditorRef, EmailEditorProps } from "react-email-editor"
 
 const Container = styled.div`
 	display: flex;
@@ -53,6 +53,7 @@ const Bar = styled.div`
 `
 
 const DesignEdit = () => {
+	const [json, setJson] = React.useState<string | null>(null)
 	const emailEditorRef = useRef<EditorRef | null>(null)
 
 	const saveDesign = () => {
@@ -74,6 +75,26 @@ const DesignEdit = () => {
 		})
 	}
 
+	const onDesignLoad = (data) => {
+		console.log("onDesignLoad", data)
+	}
+
+	const onLoad: EmailEditorProps["onLoad"] = (unlayer) => {
+		if (json) {
+
+			const templateData = JSON.parse(json)
+			console.log("onLoad", unlayer)
+			unlayer.addEventListener("design:loaded", onDesignLoad)
+			unlayer.loadDesign(templateData)
+		} else {
+			alert("Please choose a JSON file")
+		}
+	}
+
+	if (!json) {
+		return <ChooseJson onSelect={setJson} />
+	}
+
 	return (
 		<Container>
 			<Bar>
@@ -84,9 +105,45 @@ const DesignEdit = () => {
 				<button onClick={exportHtml}>Export HTML</button>
 			</Bar>
 
-			<EmailEditor ref={emailEditorRef} />
+			<EmailEditor ref={emailEditorRef} onLoad={onLoad} />
 		</Container>
 	)
 }
 
 export default DesignEdit
+
+interface ChooseJsonProps {
+	onSelect: (json: string) => void
+}
+const ChooseJson = ({ onSelect }: ChooseJsonProps) => {
+	const handleFileChange = (event: any) => {
+		const file = event.target.files[0]
+
+		if (file) {
+			const reader = new FileReader()
+
+			reader.onload = (e) => {
+				try {
+					console.log("CHOOSE JSON", e?.target?.result)
+					if (typeof e?.target?.result === "string") onSelect(e.target.result)
+				} catch (error) {
+					console.error("Error parsing JSON:", error)
+				}
+			}
+
+			reader.readAsText(file)
+		}
+	}
+
+	return (
+		<Container>
+			<Bar>
+				<h1>Choose JSON</h1>
+			</Bar>
+
+			<div style={{ padding: "10px" }}>
+				<input type="file" onChange={handleFileChange} accept=".json" />
+			</div>
+		</Container>
+	)
+}
