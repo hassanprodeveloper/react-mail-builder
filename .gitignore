@@ -1,4 +1,9 @@
-.cache
-node_modules
-node_modules
-dist
+# Cache 
+/.cache
+/.parcel-cache
+
+# Build
+/dist
+
+# Modules
+/node_modules

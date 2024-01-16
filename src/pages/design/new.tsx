@@ -1,8 +1,7 @@
-import React, { useRef, useState } from "react"
+import React, { useRef } from "react"
 import styled from "styled-components"
-
-import sample from "./sample.json"
-import EmailEditor, { EditorRef, EmailEditorProps } from "react-email-editor"
+import { Link } from "react-router-dom"
+import EmailEditor, { EditorRef } from "react-email-editor"
 
 const Container = styled.div`
 	display: flex;
@@ -37,11 +36,24 @@ const Bar = styled.div`
 		max-width: 150px;
 		cursor: pointer;
 	}
+
+	a {
+		flex: 1;
+		padding: 10px;
+		margin-left: 10px;
+		font-size: 14px;
+		font-weight: bold;
+		color: #fff;
+		border: 0px;
+		cursor: pointer;
+		text-align: right;
+		text-decoration: none;
+		line-height: 160%;
+	}
 `
 
-const Example = () => {
+const DesignAdd = () => {
 	const emailEditorRef = useRef<EditorRef | null>(null)
-	const [preview, setPreview] = useState(false)
 
 	const saveDesign = () => {
 		const unlayer = emailEditorRef.current?.editor
@@ -56,36 +68,10 @@ const Example = () => {
 		const unlayer = emailEditorRef.current?.editor
 
 		unlayer?.exportHtml((data) => {
-			const { design, html } = data
+			const { html } = data
 			console.log("exportHtml", html)
 			alert("Output HTML has been logged in your developer console.")
 		})
-	}
-
-	const togglePreview = () => {
-		const unlayer = emailEditorRef.current?.editor
-
-		if (preview) {
-			unlayer?.hidePreview()
-			setPreview(false)
-		} else {
-			unlayer?.showPreview("desktop")
-			setPreview(true)
-		}
-	}
- 
-	const onDesignLoad = (data) => {
-		console.log("onDesignLoad", data)
-	}
-
-	const onLoad: EmailEditorProps["onLoad"] = (unlayer) => {
-		console.log("onLoad", unlayer)
-		unlayer.addEventListener("design:loaded", onDesignLoad)
-		unlayer.loadDesign(sample as any)
-	}
-
-	const onReady: EmailEditorProps["onReady"] = (unlayer) => {
-		console.log("onReady", unlayer)
 	}
 
 	return (
@@ -93,18 +79,14 @@ const Example = () => {
 			<Bar>
 				<h1>React Email Editor (Demo)</h1>
 
-				<button onClick={togglePreview}>
-					{preview ? "Hide" : "Show"} Preview
-				</button>
+				<Link to={`/`}>Dashboard</Link>
 				<button onClick={saveDesign}>Save Design</button>
 				<button onClick={exportHtml}>Export HTML</button>
 			</Bar>
 
-			<React.StrictMode>
-				<EmailEditor ref={emailEditorRef} onLoad={onLoad} onReady={onReady} />
-			</React.StrictMode>
+			<EmailEditor ref={emailEditorRef} />
 		</Container>
 	)
 }
 
-export default Example
+export default DesignAdd

@@ -79,7 +79,7 @@ const DesignEdit = () => {
 			<Bar>
 				<h1>React Email Editor (Demo)</h1>
 
-				<Link to={`/dashboard`}>Dashboard</Link>
+				<Link to={`/`}>Dashboard</Link>
 				<button onClick={saveDesign}>Save Design</button>
 				<button onClick={exportHtml}>Export HTML</button>
 			</Bar>
