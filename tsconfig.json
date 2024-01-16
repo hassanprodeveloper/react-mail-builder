@@ -15,6 +15,9 @@
 		"sourceMap": true,
 		"lib": ["es2015", "es2016", "dom"],
 		"types": ["node"],
-		"resolveJsonModule": true
+		"resolveJsonModule": true,
+		"paths": {
+			"src/*": ["./src/*"]
+		  }
 	}
 }
