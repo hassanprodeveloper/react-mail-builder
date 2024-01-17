@@ -2,6 +2,7 @@ import React, { useRef } from "react"
 import styled from "styled-components"
 import { Link } from "react-router-dom"
 import EmailEditor, { EditorRef } from "react-email-editor"
+import EditorHeader from "src/components/editor/header"
 
 const Container = styled.div`
 	display: flex;
@@ -76,13 +77,7 @@ const DesignAdd = () => {
 
 	return (
 		<Container>
-			<Bar>
-				<h1>React Mail Builder</h1>
-
-				<Link to={`/`}>Dashboard</Link>
-				<button onClick={saveDesign}>Save Design</button>
-				<button onClick={exportHtml}>Export HTML</button>
-			</Bar>
+			<EditorHeader editorRef={emailEditorRef} />
 
 			<EmailEditor ref={emailEditorRef} />
 		</Container>
