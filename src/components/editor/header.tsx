@@ -58,11 +58,12 @@ export default EditorHeader
 
 const Bar = styled.div`
 	flex: 1;
-	background-color: #61dafb;
+	background-color: #f9f9f9;
 	color: #000;
 	padding: 10px;
 	display: flex;
 	max-height: 40px;
+	border-bottom: 1px solid rgb(214, 217, 220);
 
 	h1 {
 		flex: 1;
