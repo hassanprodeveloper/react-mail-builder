@@ -4,6 +4,9 @@ import { Link } from "react-router-dom"
 import EmailEditor, { EditorRef, EmailEditorProps } from "react-email-editor"
 import EditorHeader from "src/components/editor/header"
 import ChooseJson from "src/components/editor/chooseJson"
+import useQuery from "src/hooks/useQuery"
+
+import sampleJson from "src/data/sample.json"
 
 const Container = styled.div`
 	display: flex;
@@ -14,24 +17,29 @@ const Container = styled.div`
 
 const DesignEdit = () => {
 	const [json, setJson] = React.useState<string | null>(null)
+
 	const emailEditorRef = useRef<EditorRef | null>(null)
+
+	const query = useQuery()
+
+	const edit = query.get("edit")
+	const example = query.get("example")
 
 	const onDesignLoad = (data) => {
 		console.log("onDesignLoad", data)
 	}
 
 	const onLoad: EmailEditorProps["onLoad"] = (unlayer) => {
-		if (json) {
-			const templateData = JSON.parse(json)
+		const templateData = example ? sampleJson : json ? JSON.parse(json) : null
+
+		if (templateData) {
 			console.log("onLoad", unlayer)
 			unlayer.addEventListener("design:loaded", onDesignLoad)
 			unlayer.loadDesign(templateData)
-		} else {
-			alert("Please choose a JSON file")
 		}
 	}
 
-	if (!json) {
+	if (!json && edit && !example) {
 		return <ChooseJson onSelect={setJson} />
 	}
 

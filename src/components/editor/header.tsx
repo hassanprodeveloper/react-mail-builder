@@ -8,6 +8,8 @@ type Props = {
 }
 
 const EditorHeader: React.FC<Props> = ({ editorRef }) => {
+	const [preview, setPreview] = React.useState(false)
+
 	const saveDesign = () => {
 		const unlayer = editorRef.current?.editor
 
@@ -15,6 +17,18 @@ const EditorHeader: React.FC<Props> = ({ editorRef }) => {
 			console.log("saveDesign", design)
 			alert("Design JSON has been logged in your developer console.")
 		})
+	}
+
+	const togglePreview = () => {
+		const unlayer = editorRef.current?.editor
+
+		if (preview) {
+			unlayer?.hidePreview()
+			setPreview(false)
+		} else {
+			unlayer?.showPreview("desktop")
+			setPreview(true)
+		}
 	}
 
 	const exportHtml = () => {
@@ -31,7 +45,9 @@ const EditorHeader: React.FC<Props> = ({ editorRef }) => {
 		<Bar>
 			<h1>React Mail Builder</h1>
 
-			<Link to={`/`}>Dashboard</Link>
+			<button onClick={togglePreview}>
+				{preview ? "Hide" : "Show"} Preview
+			</button>
 			<button onClick={saveDesign}>Save Design</button>
 			<button onClick={exportHtml}>Export HTML</button>
 		</Bar>

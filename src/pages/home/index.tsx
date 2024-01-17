@@ -9,7 +9,10 @@ const HomePage = () => {
 		navigate("/design")
 	}
 	const importDesignOnClick = () => {
-		navigate("/design/edit")
+		navigate("/design?edit=true")
+	}
+	const demoOnClick = () => {
+		navigate("/design?example=true")
 	}
 
 	return (
@@ -32,7 +35,7 @@ const HomePage = () => {
 				</Component.OutlineButton>
 			</Component.Row>
 			<Component.TextButton
-				onClick={importDesignOnClick}
+				onClick={demoOnClick}
 				style={{ marginTop: "16px" }}
 			>
 				Demo
