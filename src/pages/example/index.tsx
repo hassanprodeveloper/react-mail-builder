@@ -13,7 +13,7 @@ const Container = styled.div`
 
 const Bar = styled.div`
 	flex: 1;
-	background-color: #1ECDFF;
+	background-color: #5B18CA;
 	color: #000;
 	padding: 10px;
 	display: flex;
