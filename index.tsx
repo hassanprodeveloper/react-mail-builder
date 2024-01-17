@@ -3,7 +3,6 @@ import * as React from "react"
 import ReactDOM from "react-dom/client"
 import { createGlobalStyle } from "styled-components"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
-import Dashboard from "src/pages/dashboard"
 import AppRoutes from "src/routers"
 
 const GlobalStyle = createGlobalStyle`
@@ -12,6 +11,7 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     height: 100%;
     font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    background: #f9f9f9
   }
 
   #root {
