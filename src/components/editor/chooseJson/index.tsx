@@ -1,5 +1,6 @@
-import React, { useRef } from "react"
-import styled from "styled-components"
+import React from "react"
+
+import Components from "./styled"
 
 interface ChooseJsonProps {
 	onSelect: (json: string) => void
@@ -25,20 +26,20 @@ const ChooseJson = ({ onSelect }: ChooseJsonProps) => {
 	}
 
 	return (
-		<Container>
-			<h1>Choose JSON</h1>
+		<Components.Main>
+			<Components.Title>Import Design File</Components.Title>
 
-			<div style={{ padding: "10px" }}>
-				<input type="file" onChange={handleFileChange} accept=".json" />
-			</div>
-		</Container>
+			<Components.ChooseButton htmlFor="file">
+				Select JSON
+				<input
+					id="file"
+					type="file"
+					onChange={handleFileChange}
+					accept=".json"
+					style={{ display: "none" }}
+				/>
+			</Components.ChooseButton>
+		</Components.Main>
 	)
 }
 export default ChooseJson
-
-const Container = styled.div`
-	display: flex;
-	flex-direction: column;
-	position: relative;
-	height: 100%;
-`
