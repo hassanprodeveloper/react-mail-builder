@@ -92,7 +92,7 @@ const Example = () => {
 	return (
 		<Container>
 			<Bar>
-				<h1>React Email Editor (Demo)</h1>
+				<h1>React Mail Builder</h1>
 
 				<button onClick={togglePreview}>
 					{preview ? "Hide" : "Show"} Preview
