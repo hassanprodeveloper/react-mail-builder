@@ -2,6 +2,7 @@
   "name": "react-mail-builder",
   "version": "1.0.0",
   "license": "MIT",
+  "author":"Muhammad Hassan",
   "scripts": {
     "dev": "rm -rf .parcel-cache && parcel index.html --port 3000",
     "build": "rm -rf .parcel-cache && parcel build index.html"
