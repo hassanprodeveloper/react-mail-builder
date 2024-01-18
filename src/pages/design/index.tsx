@@ -17,7 +17,7 @@ const Container = styled.div`
 `
 
 const DesignEdit = () => {
-	const [json, setJson] = React.useState<string | null>(null)
+	const [json, setJson] = React.useState<Object | null>(null)
 	const [name, setName] = React.useState(DEFAULT_TEMPLATE_NAME)
 
 	const emailEditorRef = useRef<EditorRef | null>(null)
@@ -41,21 +41,17 @@ const DesignEdit = () => {
 		}
 	}
 
-	const onJsonSelect = (json: string) => {
+	const onJsonSelect = (name: string, json: string) => {
 		if (!json) return
 
 		const parse = () => {
 			try {
 				const parsed = JSON.parse(json)
-				if (parsed?.name && parsed?.template) {
-					setName(parsed.name)
-					return parsed.template
-				} else {
-					alert("Invalid Design File")
-					return null
-				}
+
+				setName(name)
+				return parsed
 			} catch (error) {
-				alert("Invalid JSON")
+				alert("Invalid Design File")
 				return null
 			}
 		}

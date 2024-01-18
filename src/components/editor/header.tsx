@@ -23,9 +23,9 @@ const EditorHeader: React.FC<Props> = ({ editorRef, name, setName }) => {
 	const saveDesign = () => {
 		const unlayer = editorRef.current?.editor
 
-		unlayer?.saveDesign((template) => {
-			exportAndDownloadJson({ template, name }, name)
-			console.log("saveDesign", template)
+		unlayer?.saveDesign((design) => {
+			exportAndDownloadJson(design, name)
+			console.log("saveDesign", design)
 			alert("Design JSON has been logged in your developer console.")
 		})
 	}
