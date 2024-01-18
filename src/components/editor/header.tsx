@@ -1,29 +1,31 @@
 import React from "react"
 import { EditorRef } from "react-email-editor"
 import { Link } from "react-router-dom"
+import { DEFAULT_TEMPLATE_NAME } from "src/constants"
+import { exportAndDownloadJson } from "src/utils/helpers/json"
 import styled from "styled-components"
 
 type Props = {
 	editorRef: React.MutableRefObject<EditorRef | null>
+	name: string
+	setName: (name: string) => void
 }
 
-const DEFAULT_NAME = "Untitled Template"
-
-const EditorHeader: React.FC<Props> = ({ editorRef }) => {
+const EditorHeader: React.FC<Props> = ({ editorRef, name, setName }) => {
 	const [preview, setPreview] = React.useState(false)
-	const [name, setName] = React.useState(DEFAULT_NAME)
 
 	const onNameInputBlur = () => {
 		if (!name) {
-			setName(DEFAULT_NAME)
+			setName(DEFAULT_TEMPLATE_NAME)
 		}
 	}
 
 	const saveDesign = () => {
 		const unlayer = editorRef.current?.editor
 
-		unlayer?.saveDesign((design) => {
-			console.log("saveDesign", design)
+		unlayer?.saveDesign((template) => {
+			exportAndDownloadJson({ template, name }, name)
+			console.log("saveDesign", template)
 			alert("Design JSON has been logged in your developer console.")
 		})
 	}
