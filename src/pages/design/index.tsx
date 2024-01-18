@@ -7,6 +7,7 @@ import ChooseJson from "src/components/editor/chooseJson"
 import useQuery from "src/hooks/useQuery"
 
 import sampleJson from "src/data/sample.json"
+import { DEFAULT_TEMPLATE_NAME } from "src/constants"
 
 const Container = styled.div`
 	display: flex;
@@ -17,6 +18,7 @@ const Container = styled.div`
 
 const DesignEdit = () => {
 	const [json, setJson] = React.useState<string | null>(null)
+	const [name, setName] = React.useState(DEFAULT_TEMPLATE_NAME)
 
 	const emailEditorRef = useRef<EditorRef | null>(null)
 
@@ -30,7 +32,7 @@ const DesignEdit = () => {
 	}
 
 	const onLoad: EmailEditorProps["onLoad"] = (unlayer) => {
-		const templateData = example ? sampleJson : json ? JSON.parse(json) : null
+		const templateData: any = example ? sampleJson : json ? json : null
 
 		if (templateData) {
 			console.log("onLoad", unlayer)
@@ -39,13 +41,35 @@ const DesignEdit = () => {
 		}
 	}
 
+	const onJsonSelect = (json: string) => {
+		if (!json) return
+
+		const parse = () => {
+			try {
+				const parsed = JSON.parse(json)
+				if (parsed?.name && parsed?.template) {
+					setName(parsed.name)
+					return parsed.template
+				} else {
+					alert("Invalid Design File")
+					return null
+				}
+			} catch (error) {
+				alert("Invalid JSON")
+				return null
+			}
+		}
+		const jsonData = parse()
+		setJson(jsonData)
+	}
+
 	if (!json && edit && !example) {
-		return <ChooseJson onSelect={setJson} />
+		return <ChooseJson onSelect={onJsonSelect} />
 	}
 
 	return (
 		<Container>
-			<EditorHeader editorRef={emailEditorRef} />
+			<EditorHeader editorRef={emailEditorRef} name={name} setName={setName} />
 
 			<EmailEditor ref={emailEditorRef} onLoad={onLoad} />
 		</Container>
