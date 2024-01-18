@@ -7,8 +7,17 @@ type Props = {
 	editorRef: React.MutableRefObject<EditorRef | null>
 }
 
+const DEFAULT_NAME = "Untitled Template"
+
 const EditorHeader: React.FC<Props> = ({ editorRef }) => {
 	const [preview, setPreview] = React.useState(false)
+	const [name, setName] = React.useState(DEFAULT_NAME)
+
+	const onNameInputBlur = () => {
+		if (!name) {
+			setName(DEFAULT_NAME)
+		}
+	}
 
 	const saveDesign = () => {
 		const unlayer = editorRef.current?.editor
@@ -43,7 +52,13 @@ const EditorHeader: React.FC<Props> = ({ editorRef }) => {
 
 	return (
 		<Bar>
-			<h1>React Mail Builder</h1>
+			<LeftColumn>
+				<Input
+					value={name}
+					onChange={(e) => setName(e.target.value)}
+					onBlur={onNameInputBlur}
+				/>
+			</LeftColumn>
 
 			<button onClick={togglePreview}>
 				{preview ? "Hide" : "Show"} Preview
@@ -64,6 +79,7 @@ const Bar = styled.div`
 	display: flex;
 	max-height: 40px;
 	border-bottom: 1px solid rgb(214, 217, 220);
+	align-items: center;
 
 	h1 {
 		flex: 1;
@@ -82,6 +98,7 @@ const Bar = styled.div`
 		border: 0px;
 		max-width: 150px;
 		cursor: pointer;
+		border-radius: 4px;
 	}
 
 	a {
@@ -96,5 +113,23 @@ const Bar = styled.div`
 		text-align: right;
 		text-decoration: none;
 		line-height: 160%;
+	}
+`
+
+const LeftColumn = styled.div`
+	flex: 1;
+`
+
+const Input = styled.input`
+	all: unset;
+	font-size: 22px;
+	border-radius: 4px;
+	padding: 8px;
+	width: auto;
+	max-width: 100%;
+	box-sizing: border-box;
+
+	&:focus {
+		border: 1px solid;
 	}
 `

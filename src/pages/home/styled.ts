@@ -42,7 +42,6 @@ const OutlineButton = styled.button`
 	font-weight: 600;
 	padding: 16px;
 	border-radius: 8px;
-	background: #ffffff;
 	color: #5b18ca;
 	border: 1px solid #5b18ca;
 	cursor: pointer;
@@ -52,7 +51,6 @@ const TextButton = styled.button`
 	font-size: 16px;
 	padding: 16px;
 	border-radius: 8px;
-	background: #ffffff;
 	color: #5b18ca;
 	cursor: pointer;
 `
