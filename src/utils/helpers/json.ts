@@ -1,8 +1,10 @@
+import { DEFAULT_TEMPLATE_NAME } from "src/constants"
+
 export const removeJsonExtension = (name: string) =>
 	name.replaceAll(".json", "")
-export function exportAndDownloadJson(
+export function downloadJson(
 	data: any,
-	filename = "exported_data"
+	filename = DEFAULT_TEMPLATE_NAME
 ): void {
 	const name = removeJsonExtension(filename) + ".json"
 	// Convert the data to JSON string

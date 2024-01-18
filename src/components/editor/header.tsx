@@ -2,7 +2,8 @@ import React from "react"
 import { EditorRef } from "react-email-editor"
 import { Link } from "react-router-dom"
 import { DEFAULT_TEMPLATE_NAME } from "src/constants"
-import { exportAndDownloadJson } from "src/utils/helpers/json"
+import { downloadHtml } from "src/utils/helpers/html"
+import { downloadJson } from "src/utils/helpers/json"
 import styled from "styled-components"
 
 type Props = {
@@ -24,7 +25,7 @@ const EditorHeader: React.FC<Props> = ({ editorRef, name, setName }) => {
 		const unlayer = editorRef.current?.editor
 
 		unlayer?.saveDesign((design) => {
-			exportAndDownloadJson(design, name)
+			downloadJson(design, name)
 			console.log("saveDesign", design)
 			alert("Design JSON has been logged in your developer console.")
 		})
@@ -48,6 +49,7 @@ const EditorHeader: React.FC<Props> = ({ editorRef, name, setName }) => {
 		unlayer?.exportHtml((data) => {
 			const { html } = data
 			console.log("exportHtml", html)
+			downloadHtml(html, name)
 			alert("Output HTML has been logged in your developer console.")
 		})
 	}
