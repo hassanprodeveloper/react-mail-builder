@@ -1,8 +1,10 @@
+export const removeJsonExtension = (name: string) =>
+	name.replaceAll(".json", "")
 export function exportAndDownloadJson(
 	data: any,
 	filename = "exported_data"
 ): void {
-	const name = filename.replaceAll(".json", "") + ".json"
+	const name = removeJsonExtension(filename) + ".json"
 	// Convert the data to JSON string
 	const jsonData: string = JSON.stringify(data, null, 2) // The third parameter (2) is for indentation
 

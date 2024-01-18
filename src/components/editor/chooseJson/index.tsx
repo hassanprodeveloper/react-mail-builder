@@ -1,9 +1,10 @@
 import React from "react"
 
 import Components from "./styled"
+import { removeJsonExtension } from "src/utils/helpers/json"
 
 interface ChooseJsonProps {
-	onSelect: (json: string) => void
+	onSelect: (name: string, json: string) => void
 }
 const ChooseJson = ({ onSelect }: ChooseJsonProps) => {
 	const handleFileChange = (event: any) => {
@@ -14,8 +15,12 @@ const ChooseJson = ({ onSelect }: ChooseJsonProps) => {
 
 			reader.onload = (e) => {
 				try {
-					console.log("CHOOSE JSON", e?.target?.result)
-					if (typeof e?.target?.result === "string") onSelect(e.target.result)
+					const fileName = removeJsonExtension(file.name) // Get the selected file name
+					const fileContent = e?.target?.result
+					console.log("CHOOSE JSON", fileName, fileContent)
+
+					if (typeof e?.target?.result === "string")
+						onSelect(fileName, e.target.result)
 				} catch (error) {
 					console.error("Error parsing JSON:", error)
 				}
