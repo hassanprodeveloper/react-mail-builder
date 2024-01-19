@@ -27,7 +27,7 @@ const EditorHeader: React.FC<Props> = ({ editorRef, name, setName }) => {
 		unlayer?.saveDesign((design) => {
 			downloadJson(design, name)
 			console.log("saveDesign", design)
-			alert("Design JSON has been logged in your developer console.")
+			alert("Design has been saved")
 		})
 	}
 
@@ -50,7 +50,17 @@ const EditorHeader: React.FC<Props> = ({ editorRef, name, setName }) => {
 			const { html } = data
 			console.log("exportHtml", html)
 			downloadHtml(html, name)
-			alert("Output HTML has been logged in your developer console.")
+			alert("HTML file has been exported")
+		})
+	}
+
+	const copyHtml = () => {
+		const unlayer = editorRef.current?.editor
+
+		unlayer?.exportHtml((data) => {
+			const { html } = data
+			navigator.clipboard.writeText(html)
+			alert("HTML copied to clipboard")
 		})
 	}
 
@@ -69,6 +79,7 @@ const EditorHeader: React.FC<Props> = ({ editorRef, name, setName }) => {
 			</button>
 			<button onClick={saveDesign}>Save Design</button>
 			<button onClick={exportHtml}>Export HTML</button>
+			<button onClick={copyHtml}>Copy HTML</button>
 		</Bar>
 	)
 }
